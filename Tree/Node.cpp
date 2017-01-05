@@ -18,8 +18,8 @@
  */
 #include "Node.h"
 
-Node::Node() : current(1), left(nullptr), right(nullptr) {};
-Node::Node(int c, Node* l, Node* r) : current(c), left(l), right(r) {};
+Node::Node() : current(1), left(nullptr), right(nullptr), parent(nullptr) {};
+Node::Node(int c, Node* l, Node* r, Node* p) : current(c), left(l), right(r), parent(p) {};
 bool Node::hasChild(){
 	// checks if there are any childs.
 	return (hasLeft() || hasRight());
@@ -44,7 +44,14 @@ int Node::getCurrent(){
 	// returns values of current node.
 	return current;
 }
+void Node::setParent(Node* p){ parent = p;}
+Node* Node::getParent(){ return parent;}
+bool Node::hasParent(){
+	// checks if it has a parent.
+	return (parent != nullptr);
+}
 // setters for private members.
 void Node::setCurrent(int c){ current = c;}
 void Node::setLeft(Node* l){ left = l;}
 void Node::setRight(Node* r){ right = r;}
+

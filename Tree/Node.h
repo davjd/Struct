@@ -23,17 +23,21 @@ class Node{
 	private:
 		Node *left; // pointer to the left node.
 		Node *right; // pointer to the right node.
+		Node *parent;
 		int current; // holder for current node.
 	public:
 		Node(); // diffault constructor.
-		Node(int c, Node *l, Node *r); // constructor for node
+		Node(int c, Node *l, Node *r, Node* p); // constructor for node
 		bool hasChild(); // will check if node has a child.
+		bool hasParent(); // will check if it's a child.
 		bool hasLeft(); // will check if node has left child.
 		bool hasRight(); // will check if node has a right child.
 		Node* getLeft(); // will return left child.
 		Node* getRight(); // will return right child.
 		int getCurrent(); // return value of current node.
+		Node* getParent(); // returns the parent of current node.
 		void setCurrent(int c); // setter for current value.
 		void setLeft(Node* l); // setter for left node.
 		void setRight(Node* r); // setter for right node.
+		void setParent(Node* p); // setter for parent of node.
 };
