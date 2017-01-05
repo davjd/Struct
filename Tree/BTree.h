@@ -17,12 +17,15 @@
  */
 class Node;
 class BTree{
-	// interface for BTree.
+	// interface for Binary Tree.
 	private:
-
+		Node* root; // root of the binary tree.
 	public:
 		BTree(); // default constructor
-		void push(int n); // adds node to the tree (w/o rotations).
+		BTree(int head); // constructor with root value parameter.
+		void setRoot(int head); // setter for root value.
+		Node* getRoot(); // returns root of tree.
+		void push(int n, Node* node = root); // adds node to the tree (w/o rotations).
 		void preOrderTraverse(); // traverses preorder.
 		void inOrderTraverse(); // traverses in order.
 		void postOrderTraverse(); // traverses in post order.
