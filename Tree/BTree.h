@@ -22,9 +22,11 @@ class BTree{
 
 	public:
 		BTree(); // default constructor
-		void push_back(int n); // adds node to the tree.
+		void push(int n); // adds node to the tree (w/o rotations).
 		void preOrderTraverse(); // traverses preorder.
 		void inOrderTraverse(); // traverses in order.
 		void postOrderTraverse(); // traverses in post order.
 		void levelOrderTraverse(); // traverses in depth priority.
-}
+		Node* search(int key); // finds the key in the tree.
+		void del(int key); // deletes key in tree.
+};
