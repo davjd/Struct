@@ -15,20 +15,15 @@
  *
  * =====================================================================================
  */
-#include "Node.h"
+#include "BTree.h"
 #include <iostream>
 int main(){
 	std::cout << "---+COMPILED+--\n";
-	Node* a = new Node();
-	Node* b = new Node();
-	Node* c = new Node();
-	a->setCurrent(9);
-	c->setCurrent(11);
-	b->setCurrent(10);
-	b->setRight(c);
-	b->setLeft(a);
-	std::cout << "current: " << b->getCurrent() << "\nleft: " << b->getLeft()->getCurrent() << "\nright: " << b->getRight()->getCurrent() << "\n";
-
+	BTree tree(10);
+	tree.push(13);
+//	tree.push(8);
+	//std::cout << "root: " << tree.getRoot()->getCurrent() << "\n";
+	//tree.preOrderTraverse();
 	return 0;
 }
 
