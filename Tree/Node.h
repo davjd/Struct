@@ -28,7 +28,7 @@ class Node{
 	public:
 		Node(); // diffault constructor.
 		Node(int c, Node *l = nullptr, Node *r = nullptr, Node* p = nullptr); // constructor for node
-		~Node(); // destructor.
+		//~Node(); // destructor.
 		bool hasChild(); // will check if node has a child.
 		bool hasParent(); // will check if it's a child.
 		bool hasLeft(); // will check if node has left child.

@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "Node.h"
+#include <memory>
 class Node;
 class BTree{
 	// interface for Binary Tree.
@@ -24,9 +25,10 @@ class BTree{
 	public:
 		BTree(); // default constructor
 		BTree(int head); // constructor with root value parameter.
-		~BTree(); // deconstructor.
+		//~BTree(); // deconstructor.
 		void setRoot(int head); // setter for root value.
-		Node* getRoot(); // returns root of tree.
+		int getRootKey(); // gets value of the root.
+		Node* getRoot(); // returns root(node*) of tree.
 		void push(int key, Node* node); // adds node to the tree (w/o rotations).
 		void push(int key); // defualt insert method.
 		void preOrderTraverse(); // traverses preorder.
