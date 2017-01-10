@@ -25,7 +25,7 @@ class BTree{
 	public:
 		BTree(); // default constructor
 		BTree(int head); // constructor with root value parameter.
-		//~BTree(); // deconstructor.
+		~BTree(); // deconstructor.
 		void setRoot(int head); // setter for root value.
 		int getRootKey(); // gets value of the root.
 		Node* getRoot(); // returns root(node*) of tree.
@@ -36,6 +36,7 @@ class BTree{
 		void inOrderTraverse(); // traverses in order.
 		void postOrderTraverse(); // traverses in post order.
 		void levelOrderTraverse(); // traverses in depth priority.
-		Node* search(int key); // finds the key in the tree.
+		Node* search(int key); // default search method.
+		Node* search(int key, Node* current); // finds the key in the tree.
 		void del(int key); // deletes key in tree.
 };

@@ -26,8 +26,37 @@ BTree::BTree(int head){
 	//newNode->setCurrent(head);
 	root = new Node(head); // set as the root.
 }
-//BTree::~BTree(){ delete root;} // garabge collected!
-void BTree::setRoot(int head){ root->setCurrent(head);} // setting the root's value.
+BTree::~BTree(){
+	// to delete grabage, we need to delete all nodes
+	// meaning, all children and parents, not just the root.
+	std::cout << "BINARY DESTRUCTOR\n";
+	if(root->hasLeft()){
+		delete root->getLeft();
+		root->setLeft(nullptr);
+	}
+	if(root->getRight()){
+		delete root->getRight();
+		root->setRight(nullptr);
+	}
+	if(root != nullptr){
+		delete root;
+		root = nullptr;
+	}
+	std::cout << "DECOSTRUCTOR DONE\n";
+} // garabge collected!
+/*  BTree::deleteNodes(Node* node){
+	if(node->hasLeft()){
+		deleteNodes(node->getLeft()); // keep traversing until a child leaf is found.
+	}
+	else{ // leaf node was found.
+		delete node;
+	}
+
+}*/
+void BTree::setRoot(int head){ 
+	if(root != nullptr) delete root;
+	root->setCurrent(head);
+} // setting the root's value.
 int BTree::getRootKey(){ return root->getCurrent();} // gets root value.
 Node* BTree::getRoot(){ return root;} // returns root node.
 void BTree::push(int key){
@@ -45,7 +74,7 @@ void BTree::push(int key, Node* node){
 		else{ // if no child exists there, we'll add it to the tree.
 			Node* newNode = new Node(); // create the new node.
 			newNode->setCurrent(key); // set value.
-			newNode->setParent(node); // give the new node it's parent.
+			//newNode->setParent(node); // give the new node it's parent.
 			node->setLeft(newNode); // add the new node, as the left child of the current node.
 		}
 	}
@@ -58,7 +87,7 @@ void BTree::push(int key, Node* node){
 		else{ // if there is space(no child of current node):
 			Node* newNode = new Node(); // same procedure as above if statement.
 			newNode->setCurrent(key);
-			newNode->setParent(node);
+			//newNode->setParent(node);
 			node->setRight(newNode);
 		}
 	}	
@@ -73,4 +102,20 @@ void BTree::preOrderTraverse(Node* node){
 	if(node->hasRight()) preOrderTraverse(node->getRight());
 
 }
-
+Node* BTree::search(int key, Node* node){
+	std::cout << "current: " << (key == node->getCurrent()) << ": " << node->getCurrent() << "\n";
+	if(key == node->getCurrent()) return node; // found key.
+	else if(key < node->getCurrent()){ // check if the key is on the left side.
+		if(node->hasLeft()) search(key, node->getLeft());
+		else return nullptr;
+	}
+	else if(key > node->getCurrent()){
+		if(node->hasRight()) search(key, node->getRight());
+		return nullptr;
+	}
+	else return nullptr; // not found.
+}
+Node* BTree::search(int key){ 
+	std::cout << "search: " << search(key,root) << "\n";
+	return search(key, root);
+} // start search.

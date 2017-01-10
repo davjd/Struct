@@ -30,11 +30,16 @@ int main(){
 	tree.push(43);
 	tree.push(49);
 	tree.push(31);
-	//tree.push(40);
+	tree.push(40);
 	std::cout << "ROOT: " << tree.getRootKey() << "\n---TRAVERSE----\n\n";
 	
 	//std::cout << "root: " << tree.getRoot()->getCurrent() << "\n";
 	tree.preOrderTraverse();
+	std::cout << "find: 43\n";
+	Node* n = tree.search(43);
+	if(n == nullptr) std::cout << "NOT FOUND\n";
+	else std::cout << "Current: " << n->getCurrent() << ", left: " << n->getLeft()->getCurrent() << ", right: " << n->getRight()->getCurrent() << "\n";
+	std::cout << "\nALL METHODS PASSED\n\n";
 	return 0;
 }
 

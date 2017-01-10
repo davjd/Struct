@@ -21,14 +21,23 @@
 
 Node::Node() : current(1), left(nullptr), right(nullptr), parent(nullptr) {};
 Node::Node(int c, Node* l, Node* r, Node* p) : current(c), left(l), right(r), parent(p) {};
-/*  Node::~Node(){
+Node::~Node(){
 	std::cout << "left: " << hasLeft() << "\n";
-	if(hasLeft()) delete left;
+	if(hasLeft()){ 
+		delete left;
+		left = nullptr;
+	}
 	std::cout << "right: " << hasRight() << "\n";
-	if(hasRight()) delete right;
+	if(hasRight()){
+	  	delete right;
+		right = nullptr;
+	}
 	std::cout << "parent: " << hasParent() << "\n";
-	if(hasParent()) delete parent;
-}*/
+	if(hasParent()) { 
+		delete parent;
+		parent = nullptr;
+	}
+}
 bool Node::hasChild(){
 	// checks if there are any childs.
 	return (hasLeft() || hasRight());
@@ -61,6 +70,14 @@ bool Node::hasParent(){
 }
 // setters for private members.
 void Node::setCurrent(int c){ current = c;}
-void Node::setLeft(Node* l){ left = l;}
-void Node::setRight(Node* r){ right = r;}
+void Node::setLeft(Node* l){ 
+	//if(left != nullptr){
+		//delete left;
+	//}
+	left = l;
+}
+void Node::setRight(Node* r){ 
+	//if(right != nullptr) delete right;
+	right = r;
+}
 
