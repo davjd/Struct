@@ -16,7 +16,6 @@
  * =====================================================================================
  */
 #include "Node.h"
-#include <memory>
 class Node;
 class BTree{
 	// interface for Binary Tree.
@@ -39,4 +38,5 @@ class BTree{
 		Node* search(int key); // default search method.
 		Node* search(int key, Node* current); // finds the key in the tree.
 		void del(int key); // deletes key in tree.
+		void del(int key, Node* node); // helper method.
 };

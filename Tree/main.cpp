@@ -38,7 +38,7 @@ int main(){
 	std::cout << "find: 43\n";
 	Node* n = tree.search(43);
 	if(n == nullptr) std::cout << "NOT FOUND\n";
-	else std::cout << "Current: " << n->getCurrent() << ", left: " << n->getLeft()->getCurrent() << ", right: " << n->getRight()->getCurrent() << "\n";
+	else std::cout << "FOUND----- Current: " << n->getCurrent() << ", left: " << n->getLeft()->getCurrent() << ", right: " << n->getRight()->getCurrent() << "\n";
 	std::cout << "\nALL METHODS PASSED\n\n";
 	return 0;
 }

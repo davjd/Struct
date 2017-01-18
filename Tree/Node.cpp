@@ -17,22 +17,18 @@
  * =====================================================================================
  */
 #include "Node.h"
-#include <iostream>
 
 Node::Node() : current(1), left(nullptr), right(nullptr), parent(nullptr) {};
 Node::Node(int c, Node* l, Node* r, Node* p) : current(c), left(l), right(r), parent(p) {};
 Node::~Node(){
-	std::cout << "left: " << hasLeft() << "\n";
 	if(hasLeft()){ 
 		delete left;
 		left = nullptr;
 	}
-	std::cout << "right: " << hasRight() << "\n";
 	if(hasRight()){
 	  	delete right;
 		right = nullptr;
 	}
-	std::cout << "parent: " << hasParent() << "\n";
 	if(hasParent()) { 
 		delete parent;
 		parent = nullptr;

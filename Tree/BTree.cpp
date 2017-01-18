@@ -103,19 +103,36 @@ void BTree::preOrderTraverse(Node* node){
 
 }
 Node* BTree::search(int key, Node* node){
-	std::cout << "current: " << (key == node->getCurrent()) << ": " << node->getCurrent() << "\n";
 	if(key == node->getCurrent()) return node; // found key.
-	else if(key < node->getCurrent()){ // check if the key is on the left side.
-		if(node->hasLeft()) search(key, node->getLeft());
-		else return nullptr;
+	else if(key < node->getCurrent() && node->hasLeft()){ // check if the key is on the left side.
+		return search(key, node->getLeft());
 	}
-	else if(key > node->getCurrent()){
-		if(node->hasRight()) search(key, node->getRight());
-		return nullptr;
+	else if(key > node->getCurrent() && node->getRight()){
+		return search(key, node->getRight());
 	}
 	else return nullptr; // not found.
 }
 Node* BTree::search(int key){ 
-	std::cout << "search: " << search(key,root) << "\n";
 	return search(key, root);
 } // start search.
+void BTree::del(int key, Node* node){
+	// first find the key in the tree.
+	if(key == node->getCurrent()){ // found key.
+
+	}
+	else if(key < node->getCurrent() && node->hasLeft()){ // we need to go to the left.
+		if(node->getLeft() == key){ // the child on left is the key to be deleted.
+			
+		}
+	}
+	else if(key > node->getCurrent() && node->hasRight()){ // we need to go the right.
+
+	}
+	else return; // key not found, just exit.
+}
+
+
+
+
+
+
