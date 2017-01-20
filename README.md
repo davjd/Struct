@@ -1,2 +1,3 @@
 # ADTPractice
-Practice using data structures and ADT
+Implementations of data stuctures and abstact data types using C++.
+Used for learning purposes(nothing serious!!)
