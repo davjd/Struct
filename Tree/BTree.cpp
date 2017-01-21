@@ -129,19 +129,35 @@ void BTree::del(int k, Node* node){
 	 *
 	 *
 	 * */
-	// first find the key in the tree.
-	if(k == node->key()){ // found key.
+	if(k < node->key() && node->hasLeft()){ // we need to go to the left.
+		if(node->getLeft()->key() == k){ // we need to keep track of the parent of k.
+			// so we have to check if the node is the parent of k.
+			// if it is, we'll test the cases.
+			Node* child = node->getLeft(); // temp variable for k's node.
+			if(child->hasChildren()){
+				if(child->hasLeft() && child->hasRight()){ // if k's node has two children.
+		
+				} // if only one child:
+				else if(child->hasLeft()){ // if child is left.
 
-	}
-	else if(k < node->key() && node->hasLeft()){ // we need to go to the left.
-		if(node->getLeft() == node){ // the child on left is the key to be deleted.
-			
+				}
+				else{ // if child is right.
+
+				}
+			}
 		}
+		else del(k, node->getLeft()); // keep traversing.			
 	}
 	else if(k > node->key() && node->hasRight()){ // we need to go the right.
+		if(node->getRight()->key() == k){
+
+		}
+		else del(k, node->getRight()); // keep traversing.
+	}
+	else if(node->key() == k){ // this is will only happen if deleting the root.
 
 	}
-	else return; // key not found, just exit.
+	else return; // key not found, just exit(first case).
 }
 
 

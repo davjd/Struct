@@ -18,7 +18,7 @@
  */
 #include "Node.h"
 
-Node::Node() : current(1), left(nullptr), right(nullptr), parent(nullptr) {};
+Node::Node() : current(0), left(nullptr), right(nullptr), parent(nullptr) {};
 Node::Node(int c, Node* l, Node* r, Node* p) : current(c), left(l), right(r), parent(p) {};
 Node::~Node(){
 	if(hasLeft()){ 

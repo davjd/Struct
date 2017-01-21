@@ -34,8 +34,17 @@ int main(){
 	std::cout << "ROOT: " << tree.getRootKey() << "\n---TRAVERSE----\n\n";
 	
 	tree.preOrderTraverse();
-	std::cout << "max of tree: " << tree.maxChild(tree.getRoot())->getCurrent() << "\n";
-	std::cout << "max of root's left subfield: " << tree.maxChild(tree.find(tree.getRoot()->getLeft()->getCurrent()))->getCurrent() << "\n";
+	Node* a = new Node();
+	a->setCurrent(10);
+	Node* b = new Node();
+	Node* c = new Node();
+	c->setCurrent(11);
+	c->setLeft(a);
+	c->setRight(b);
+	Node* t = c;	
+	
+	std::cout << "old:: c: " << c->key() << "left: " << c->getLeft()->key() << " right: " << c->getRight()->key() << "\n";
+	std::cout << "old:: t: " << t->key() << "left: " << t->getLeft()->key() << " right: " << t->getRight()->key() << "\n";
 	std::cout << "\nALL METHODS PASSED\n\n";
 	return 0;
 }
