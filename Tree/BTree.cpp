@@ -102,26 +102,48 @@ void BTree::preOrderTraverse(Node* node){
 	if(node->hasRight()) preOrderTraverse(node->getRight());
 
 }
-Node* BTree::search(int key, Node* node){
+Node* BTree::find(int key, Node* node){
 	if(key == node->getCurrent()) return node; // found key.
 	else if(key < node->getCurrent() && node->hasLeft()){ // check if the key is on the left side.
-		return search(key, node->getLeft());
+		return find(key, node->getLeft());
 	}
 	else if(key > node->getCurrent() && node->getRight()){
-		return search(key, node->getRight());
+		return find(key, node->getRight());
 	}
 	else return nullptr; // not found.
 }
-Node* BTree::search(int key){ 
-	return search(key, root);
+Node* BTree::find(int key){ 
+	return find(key, root);
 } // start search.
+Node* BTree::maxChild(Node* node){ // finds largest child of node.
+	if(!node->hasRight()) return node; // if no more larger children, return node.
+	else return maxChild(node->getRight()); // if there's larger children.
+}
 void BTree::del(int key, Node* node){
+	/* 
+	 * CASES:
+	 * 	a) key is not in tree.
+	 * 	b) key is a leaf (no children).
+	 * 	c) key node has one child.
+	 * 	d) key node has two children.
+	 *
+	 * 	a - exit function.
+	 * 	b - just delete the key node from the parent.
+	 * 	d - replace the the parent node's child with the current
+	 * 		node's child, then delete the current node as if it were
+	 * 		a leaf.
+	 * 	e - get the largest key smaller than the current key.
+	 * 		we do this, by traversing through the current key's
+	 * 		children. 
+	 *
+	 *
+	 * */
 	// first find the key in the tree.
 	if(key == node->getCurrent()){ // found key.
 
 	}
 	else if(key < node->getCurrent() && node->hasLeft()){ // we need to go to the left.
-		if(node->getLeft() == key){ // the child on left is the key to be deleted.
+		if(node->getLeft() == node){ // the child on left is the key to be deleted.
 			
 		}
 	}

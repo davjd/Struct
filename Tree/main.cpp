@@ -33,12 +33,9 @@ int main(){
 	tree.push(40);
 	std::cout << "ROOT: " << tree.getRootKey() << "\n---TRAVERSE----\n\n";
 	
-	//std::cout << "root: " << tree.getRoot()->getCurrent() << "\n";
 	tree.preOrderTraverse();
-	std::cout << "find: 43\n";
-	Node* n = tree.search(43);
-	if(n == nullptr) std::cout << "NOT FOUND\n";
-	else std::cout << "FOUND----- Current: " << n->getCurrent() << ", left: " << n->getLeft()->getCurrent() << ", right: " << n->getRight()->getCurrent() << "\n";
+	std::cout << "max of tree: " << tree.maxChild(tree.getRoot())->getCurrent() << "\n";
+	std::cout << "max of root's left subfield: " << tree.maxChild(tree.find(tree.getRoot()->getLeft()->getCurrent()))->getCurrent() << "\n";
 	std::cout << "\nALL METHODS PASSED\n\n";
 	return 0;
 }

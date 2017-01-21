@@ -35,8 +35,9 @@ class BTree{
 		void inOrderTraverse(); // traverses in order.
 		void postOrderTraverse(); // traverses in post order.
 		void levelOrderTraverse(); // traverses in depth priority.
-		Node* search(int key); // default search method.
-		Node* search(int key, Node* current); // finds the key in the tree.
+		Node* find(int key); // default search method.
+		Node* find(int key, Node* current); // finds the key in the tree.
 		void del(int key); // deletes key in tree.
 		void del(int key, Node* node); // helper method.
+		Node* maxChild(Node* node); // returns the largest child of node. 
 };
