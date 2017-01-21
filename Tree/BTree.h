@@ -28,16 +28,16 @@ class BTree{
 		void setRoot(int head); // setter for root value.
 		int getRootKey(); // gets value of the root.
 		Node* getRoot(); // returns root(node*) of tree.
-		void push(int key, Node* node); // adds node to the tree (w/o rotations).
-		void push(int key); // defualt insert method.
+		void push(int k, Node* node); // adds node to the tree (w/o rotations).
+		void push(int k); // defualt insert method.
 		void preOrderTraverse(); // traverses preorder.
 		void preOrderTraverse(Node* node); // start at node traverse.
 		void inOrderTraverse(); // traverses in order.
 		void postOrderTraverse(); // traverses in post order.
 		void levelOrderTraverse(); // traverses in depth priority.
-		Node* find(int key); // default search method.
-		Node* find(int key, Node* current); // finds the key in the tree.
-		void del(int key); // deletes key in tree.
-		void del(int key, Node* node); // helper method.
+		Node* find(int k); // default search method.
+		Node* find(int k, Node* current); // finds the key in the tree.
+		void del(int k); // deletes key in tree.
+		void del(int k, Node* node); // helper method.
 		Node* maxChild(Node* node); // returns the largest child of node. 
 };

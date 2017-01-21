@@ -41,4 +41,5 @@ class Node{
 		void setLeft(Node* l); // setter for left node.
 		void setRight(Node* r); // setter for right node.
 		void setParent(Node* p); // setter for parent of node.
+		int key(); // same as getCurrent method.
 };

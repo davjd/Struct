@@ -44,36 +44,27 @@ BTree::~BTree(){
 	}
 	std::cout << "DECOSTRUCTOR DONE\n";
 } // garabge collected!
-/*  BTree::deleteNodes(Node* node){
-	if(node->hasLeft()){
-		deleteNodes(node->getLeft()); // keep traversing until a child leaf is found.
-	}
-	else{ // leaf node was found.
-		delete node;
-	}
-
-}*/
 void BTree::setRoot(int head){ 
 	if(root != nullptr) delete root;
 	root->setCurrent(head);
 } // setting the root's value.
-int BTree::getRootKey(){ return root->getCurrent();} // gets root value.
+int BTree::getRootKey(){ return root->key();} // gets root value.
 Node* BTree::getRoot(){ return root;} // returns root node.
-void BTree::push(int key){
-	push(key, root); // deualt starting point will be root.
+void BTree::push(int k){
+	push(k, root); // deualt starting point will be root.
 }
-void BTree::push(int key, Node* node){
+void BTree::push(int k, Node* node){
 	// inserts key into tree.
 	// for now, we won't rotate, but a later
 	// implementation might.
-	if(key < node->getCurrent()){ // if key is less than current value of node.
+	if(k < node->key()){ // if key is less than current value of node.
 		if(node->hasLeft()){ // if there is child already on the left:
 			// we'll need to keep traversing, until there is an empty spot.
-			push(key, node->getLeft()); // keep traversing.
+			push(k, node->getLeft()); // keep traversing.
 		}	
 		else{ // if no child exists there, we'll add it to the tree.
 			Node* newNode = new Node(); // create the new node.
-			newNode->setCurrent(key); // set value.
+			newNode->setCurrent(k); // set value.
 			//newNode->setParent(node); // give the new node it's parent.
 			node->setLeft(newNode); // add the new node, as the left child of the current node.
 		}
@@ -82,11 +73,11 @@ void BTree::push(int key, Node* node){
 		// key must be greater, if inside this else.
 		if(node->hasRight()){ // check if there is room.
 			// if not, keep traversing.
-			push(key,node->getRight());
+			push(k,node->getRight());
 		}
 		else{ // if there is space(no child of current node):
 			Node* newNode = new Node(); // same procedure as above if statement.
-			newNode->setCurrent(key);
+			newNode->setCurrent(k);
 			//newNode->setParent(node);
 			node->setRight(newNode);
 		}
@@ -97,29 +88,29 @@ void BTree::preOrderTraverse(){ // default traversing method.
 }
 void BTree::preOrderTraverse(Node* node){
 	// we'll just print the keys in the tree.
-	std::cout << node->getCurrent() << "\n"; // output current.
+	std::cout << node->key() << "\n"; // output current.
 	if(node->hasLeft()) preOrderTraverse(node->getLeft());
 	if(node->hasRight()) preOrderTraverse(node->getRight());
 
 }
-Node* BTree::find(int key, Node* node){
-	if(key == node->getCurrent()) return node; // found key.
-	else if(key < node->getCurrent() && node->hasLeft()){ // check if the key is on the left side.
-		return find(key, node->getLeft());
+Node* BTree::find(int k, Node* node){
+	if(k == node->key()) return node; // found key.
+	else if(k < node->key() && node->hasLeft()){ // check if the key is on the left side.
+		return find(k, node->getLeft());
 	}
-	else if(key > node->getCurrent() && node->getRight()){
-		return find(key, node->getRight());
+	else if(k > node->key() && node->getRight()){
+		return find(k, node->getRight());
 	}
 	else return nullptr; // not found.
 }
-Node* BTree::find(int key){ 
-	return find(key, root);
+Node* BTree::find(int k){ 
+	return find(k, root);
 } // start search.
 Node* BTree::maxChild(Node* node){ // finds largest child of node.
 	if(!node->hasRight()) return node; // if no more larger children, return node.
 	else return maxChild(node->getRight()); // if there's larger children.
 }
-void BTree::del(int key, Node* node){
+void BTree::del(int k, Node* node){
 	/* 
 	 * CASES:
 	 * 	a) key is not in tree.
@@ -129,25 +120,25 @@ void BTree::del(int key, Node* node){
 	 *
 	 * 	a - exit function.
 	 * 	b - just delete the key node from the parent.
-	 * 	d - replace the the parent node's child with the current
+	 * 	c - replace the the parent node's child with the current
 	 * 		node's child, then delete the current node as if it were
 	 * 		a leaf.
-	 * 	e - get the largest key smaller than the current key.
+	 * 	d - get the largest key smaller than the current key.
 	 * 		we do this, by traversing through the current key's
-	 * 		children. 
+	 * 		right subtrees. Replace that key with the key to be deleted. 
 	 *
 	 *
 	 * */
 	// first find the key in the tree.
-	if(key == node->getCurrent()){ // found key.
+	if(k == node->key()){ // found key.
 
 	}
-	else if(key < node->getCurrent() && node->hasLeft()){ // we need to go to the left.
+	else if(k < node->key() && node->hasLeft()){ // we need to go to the left.
 		if(node->getLeft() == node){ // the child on left is the key to be deleted.
 			
 		}
 	}
-	else if(key > node->getCurrent() && node->hasRight()){ // we need to go the right.
+	else if(k > node->key() && node->hasRight()){ // we need to go the right.
 
 	}
 	else return; // key not found, just exit.

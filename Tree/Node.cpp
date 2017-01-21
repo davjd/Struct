@@ -58,6 +58,7 @@ int Node::getCurrent(){
 	// returns values of current node.
 	return current;
 }
+int Node::key(){ return current;} // same as getCurrent method.
 void Node::setParent(Node* p){ parent = p;}
 Node* Node::getParent(){ return parent;}
 bool Node::hasParent(){
