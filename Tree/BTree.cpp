@@ -110,6 +110,14 @@ Node* BTree::maxChild(Node* node){ // finds largest child of node.
 	if(!node->hasRight()) return node; // if no more larger children, return node.
 	else return maxChild(node->getRight()); // if there's larger children.
 }
+Node* BTree::child(Node* node){ // ASSERT: node has atleast one child.
+	if(node->hasLeft()) return node->getLeft();
+   	else return node->getRight();
+}
+void BTree::resetChildren(Node* node){ // resets node's children to nulls.
+   	if(node->hasLeft()) node->setLeft(nullptr);
+   	if(node->hasRight()) node->setRight(nullptr);
+}
 void BTree::del(int k, Node* node){
 	/* 
 	 * CASES:
