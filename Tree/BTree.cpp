@@ -144,7 +144,8 @@ void BTree::del(int k, Node* node){
    	else if(key < node->key() && node->hasLeft()){ // we need to go to the left.
       		if(node->getLeft()->key() == k){ // the child on left is the key to be deleted.
                		if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
-    
+    							Node* tmp = maxChild(node->getLeft()); // tempory var for max child.
+								Node->getLeft()->setKey(tmp->key());
                		}
                		else if(node->getLeft()->hasChildren()){ // CASE C (one child)
                      		// point the key node's parent child to key node's only child.
