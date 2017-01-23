@@ -142,25 +142,27 @@ void BTree::del(int k, Node* node){
 		
    	}
    	else if(key < node->getCurrent() && node->hasLeft()){ // we need to go to the left.
-      		if(node->getLeft() == node){ // the child on left is the key to be deleted.
-         		if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
-		
-        		 }
-         		else if(node->getLeft()->hasChildren()){ // CASE C(one child -(left child)-)
-            			// point the key node's parent child to key node's only child.
-            			node->setLeft(node->getLeft()->child()); // replace key node's position with key node's child.
-            			resetChildren(node->getLeft()); // set key node's child to null before deleting it.
-            			delete node->getLeft(); // delete garbage.         
-         		}
-         		else{ // CASE B(No children)
-            			// just delete key node from it's parent.
-            			delete node->getLeft(); // delete key node.
-            			node->setLeft(nullptr); // reset the pointer.
-         		}
-      		}
-      		else{
-
-      		}
+      		if(node->getLeft()->key() == k){ // the child on left is the key to be deleted.
+               		if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
+    
+               		}
+               		else if(node->getLeft()->hasChildren()){ // CASE C (one child)
+                     		// point the key node's parent child to key node's only child.
+                     		node->setLeft(node->getLeft()->child()); // replace key node's position with key node's child.
+                     		resetChildren(node->getLeft()); // set key node's child to null before deleting it.
+                     		delete node->getLeft(); // delete garbage.         
+               		}
+               		else{ // CASE B (No children)
+                     		// just delete key node from it's parent.
+                     		delete node->getLeft(); // delete key node.
+                     		node->setLeft(nullptr); // reset the pointer.
+               		}
+            	}
+            	else{ // if this is true: we have not found k's parent.
+               		del(k,node->getLeft()); // keep traversing.
+            	}
+   	}
+   	else return; // key not found, just exit.
    	}
    	else if(key > node->getCurrent() && node->hasRight()){ // we need to go the right.
       		if(node->getLeft()->key() == k){ // the child on left is the key to be deleted.
