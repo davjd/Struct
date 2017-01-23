@@ -129,35 +129,40 @@ void BTree::del(int k, Node* node){
 	 *
 	 *
 	 * */
-	if(k < node->key() && node->hasLeft()){ // we need to go to the left.
-		if(node->getLeft()->key() == k){ // we need to keep track of the parent of k.
-			// so we have to check if the node is the parent of k.
-			// if it is, we'll test the cases.
-			Node* child = node->getLeft(); // temp variable for k's node.
-			if(child->hasChildren()){
-				if(child->hasLeft() && child->hasRight()){ // if k's node has two children.
+	// first find the key in the tree.
+   	if(key == node->getCurrent()){ // found key.
 		
-				} // if only one child:
-				else if(child->hasLeft()){ // if child is left.
+   	}
+   	else if(key < node->getCurrent() && node->hasLeft()){ // we need to go to the left.
+      		if(node->getLeft() == node){ // the child on left is the key to be deleted.
+         		if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
+		
+        		 }
+         		else if(node->getLeft()->hasChildren()){ // CASE C(one child -(left child)-)
+            			// point the key node's parent child to key node's only child.
+            			node->setLeft(node->getLeft()->child()); // replace key node's position with key node's child.
+            			resetChildren(node->getLeft()); // set key node's child to null before deleting it.
+            			delete node->getLeft(); // delete garbage.         
+         		}
+         		else{ // CASE B(No children)
+            			// just delete key node from it's parent.
+            			delete node->getLeft(); // delete key node.
+            			node->setLeft(nullptr); // reset the pointer.
+         		}
+      		}
+      		else{
 
-				}
-				else{ // if child is right.
+      		}
+   	}
+   	else if(key > node->getCurrent() && node->hasRight()){ // we need to go the right.
+      		if(node->getRight() == node){
 
-				}
-			}
-		}
-		else del(k, node->getLeft()); // keep traversing.			
-	}
-	else if(k > node->key() && node->hasRight()){ // we need to go the right.
-		if(node->getRight()->key() == k){
+      		}
+      		else{
 
-		}
-		else del(k, node->getRight()); // keep traversing.
-	}
-	else if(node->key() == k){ // this is will only happen if deleting the root.
-
-	}
-	else return; // key not found, just exit(first case).
+      		}
+   	}
+   	else return; // key not found, just exit.
 }
 
 
