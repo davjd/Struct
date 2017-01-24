@@ -39,5 +39,4 @@ class BTree{
 		Node* find(int k, Node* current); // finds the key in the tree.
 		void del(int k); // deletes key in tree.
 		void del(int k, Node* node); // helper method.
-		Node* maxChild(Node* node); // returns the largest child of node. 
 };

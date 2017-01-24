@@ -106,27 +106,6 @@ Node* BTree::find(int k, Node* node){
 Node* BTree::find(int k){ 
 	return find(k, root);
 } // start search.
-Node* BTree::maxChild(Node* node){ // finds largest child of node. Expects node to be root of subtree.
-	if(!node->hasRight()) return node; // if no more larger children, return node.
-	else if(node->hasRight()) maxChild(node->getRight()); // if there's larger children.
-	else return nullptr;
-}
-Node* BTree::maxChildPar(Node* node){ // returns the parent of the max child of node.
-	if(node->hasRight() && !node->getRight()->hasRight() || !node->hasRight()){ 
-		// find where node has a right child, but child has no right child.
-		// but if node is already the largest(if no it doesn't have a right child), just return the node.
-		return node;
-	}
-	else return maxChildPar(node->getRight());
-}
-Node* BTree::child(Node* node){ // ASSERT: node has atleast one child.
-	if(node->hasLeft()) return node->getLeft();
-	else return node->getRight();
-}
-void BTree::resetChildren(Node* node){ // resets node's children to nulls.
-	if(node->hasLeft()) node->setLeft(nullptr);
-	if(node->hasRight()) node->setRight(nullptr);
-}
 void BTree::del(int k, Node* node){
 	/* 
 	 * CASES:

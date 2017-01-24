@@ -38,8 +38,13 @@ class Node{
 		int getCurrent(); // return value of current node.
 		Node* getParent(); // returns the parent of current node.
 		void setCurrent(int c); // setter for current value.
+		void setKey(int c); // setter for current value.
 		void setLeft(Node* l); // setter for left node.
 		void setRight(Node* r); // setter for right node.
 		void setParent(Node* p); // setter for parent of node.
 		int key(); // same as getCurrent method.
-};
+		Node* maxChild(Node* node); // returns the largest child of node. 
+		Node* maxChildPar(Node* node); // returns parent of largest child of node.
+		Node* child(Node * node); // returns child of node.
+		void resetChildren(Node* node); // resets all children of node to nullptrs.		
+}};
