@@ -106,17 +106,26 @@ Node* BTree::find(int k, Node* node){
 Node* BTree::find(int k){ 
 	return find(k, root);
 } // start search.
-Node* BTree::maxChild(Node* node){ // finds largest child of node.
+Node* BTree::maxChild(Node* node){ // finds largest child of node. Expects node to be root of subtree.
 	if(!node->hasRight()) return node; // if no more larger children, return node.
-	else return maxChild(node->getRight()); // if there's larger children.
+	else if(node->hasRight()) maxChild(node->getRight()); // if there's larger children.
+	else return nullptr;
+}
+Node* BTree::maxChildPar(Node* node){ // returns the parent of the max child of node.
+	if(node->hasRight() && !node->getRight()->hasRight() || !node->hasRight()){ 
+		// find where node has a right child, but child has no right child.
+		// but if node is already the largest(if no it doesn't have a right child), just return the node.
+		return node;
+	}
+	else return maxChildPar(node->getRight());
 }
 Node* BTree::child(Node* node){ // ASSERT: node has atleast one child.
 	if(node->hasLeft()) return node->getLeft();
-   	else return node->getRight();
+   else return node->getRight();
 }
 void BTree::resetChildren(Node* node){ // resets node's children to nulls.
-   	if(node->hasLeft()) node->setLeft(nullptr);
-   	if(node->hasRight()) node->setRight(nullptr);
+   if(node->hasLeft()) node->setLeft(nullptr);
+   if(node->hasRight()) node->setRight(nullptr);
 }
 void BTree::del(int k, Node* node){
 	/* 
@@ -133,56 +142,57 @@ void BTree::del(int k, Node* node){
 	 * 		a leaf.
 	 * 	d - get the largest key smaller than the current key.
 	 * 		we do this, by traversing through the current key's
-	 * 		right subtrees. Replace that key with the key to be deleted. 
+	 * 		right subtrees. Reiplace that key with the key to be deleted. 
 	 *
 	 *
 	 * */
 	// first find the key in the tree.
-   	if(key == node->key()){ // found key.
-		
+   	if(k < node->key() && node->hasLeft()){ // we need to go to the left.
+      	if(node->getLeft()->key() == k){ // the child on left is the key to be deleted.
+         	if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
+    				Node* tmp = maxChildPar(node->getLeft()->getLeft()); // tempory var for parent of max child.
+					Node->getLeft()->setKey(tmp->getRight()->key()); // replace key of k with max child's key.
+					// now we have to delete max child from it's original position.
+					del(tmp->getRight()->key(), tmp);
+				}
+				else if(node->getLeft()->hasChildren()){ // CASE C (one child)
+            	// point the key node's parent child to key node's only child.
+               node->setLeft(node->getLeft()->child()); // replace key node's position with key node's child.
+               resetChildren(node->getLeft()); // set key node's child to null before deleting it.
+               delete node->getLeft(); // delete garbage.         
+            }
+            else{ // CASE B (No children)
+					// just delete key node from it's parent.
+              	delete node->getLeft(); // delete key node.
+               node->setLeft(nullptr); // reset the pointer.
+            }
+			}
+			else{ // if this is true: we have not found k's parent.
+       		del(k,node->getLeft()); // keep traversing.
+      	}
    	}
-   	else if(key < node->key() && node->hasLeft()){ // we need to go to the left.
-      		if(node->getLeft()->key() == k){ // the child on left is the key to be deleted.
-               		if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
-    							Node* tmp = maxChild(node->getLeft()); // tempory var for max child.
-								Node->getLeft()->setKey(tmp->key());
-               		}
-               		else if(node->getLeft()->hasChildren()){ // CASE C (one child)
-                     		// point the key node's parent child to key node's only child.
-                     		node->setLeft(node->getLeft()->child()); // replace key node's position with key node's child.
-                     		resetChildren(node->getLeft()); // set key node's child to null before deleting it.
-                     		delete node->getLeft(); // delete garbage.         
-               		}
-               		else{ // CASE B (No children)
-                     		// just delete key node from it's parent.
-                     		delete node->getLeft(); // delete key node.
-                     		node->setLeft(nullptr); // reset the pointer.
-               		}
-            	}
-            	else{ // if this is true: we have not found k's parent.
-               		del(k,node->getLeft()); // keep traversing.
-            	}
-   	}
-   	else if(key > node->key() && node->hasRight()){ // we need to go the right.
+   	else if(k > node->key() && node->hasRight()){ // we need to go the right.
       		if(node->getRight()->key() == k){ // the child on left is the key to be deleted.
-               		if(node->getRight()->hasLeft() && node->getRight()->hasRight()){ // CASE D (two children). 
-    
-               		}
-               		else if(node->getRight()->hasChildren()){ // CASE C (one child)
-                     		// point the key node's parent child to key node's only child.
-                     		node->setRight(node->getRight()->child()); // replace key node's position with key node's child
-                     		resetChildren(node->getRight()); // set key node's child to null before deleting it.
-                     		delete node->getRight(); // delete garbage.         
-               		}
-               		else{ // CASE B (No children)
-                     		// just delete key node from it's parent.
-                     		delete node->getRight(); // delete key node.
-                     		node->setRight(nullptr); // reset the pointer.
-               		}
-            	}
-            	else{ // if this is true: we have not found k's parent.
-               		del(k,node->getRight()); // keep traversing.
-            	}
+               if(node->getRight()->hasLeft() && node->getRight()->hasRight()){ // CASE D (two children). 
+    					Node* tmp = maxChildPar(node->getRight()->getLeft());
+						Node->getRight()->setKey(tmp->getRight()->key());
+						del(tmp->getRight()->key(),tmp);
+               }
+               else if(node->getRight()->hasChildren()){ // CASE C (one child)
+               	// point the key node's parent child to key node's only child.
+                  node->setRight(node->getRight()->child()); // replace key node's position with key node's child
+                  resetChildren(node->getRight()); // set key node's child to null before deleting it.
+                  delete node->getRight(); // delete garbage.         
+               }
+              	else{ // CASE B (No children)
+               	// just delete key node from it's parent.
+               	delete node->getRight(); // delete key node.
+                  node->setRight(nullptr); // reset the pointer.
+               }
+            }
+				else{ // if this is true: we have not found k's parent.
+               del(k,node->getRight()); // keep traversing.
+          	}
    	}
    	else return; // key not found, just exit.
 }
