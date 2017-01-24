@@ -99,4 +99,7 @@ void Node::resetChildren(Node* node){ // resets node's children to nulls.
 	if(node->hasLeft()) node->setLeft(nullptr);
 	if(node->hasRight()) node->setRight(nullptr);
 }
-
+Node* Node::child(){
+	if(hasLeft()) return getLeft();
+	else return getRight();
+}

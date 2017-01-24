@@ -47,4 +47,5 @@ class Node{
 		Node* maxChildPar(Node* node); // returns parent of largest child of node.
 		Node* child(Node * node); // returns child of node.
 		void resetChildren(Node* node); // resets all children of node to nullptrs.		
-}};
+		Node* child();
+};

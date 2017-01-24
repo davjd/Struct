@@ -125,19 +125,25 @@ void BTree::del(int k, Node* node){
 	 *
 	 *
 	 * */
-	// first find the key in the tree.
 	if(k < node->key() && node->hasLeft()){ // we need to go to the left.
 		if(node->getLeft()->key() == k){ // the child on left is the key to be deleted.
 			if(node->getLeft()->hasLeft() && node->getLeft()->hasRight()){ // CASE D (two children). 
-				Node* tmp = maxChildPar(node->getLeft()->getLeft()); // tempory var for parent of max child.
-				Node->getLeft()->setKey(tmp->getRight()->key()); // replace key of k with max child's key.
-				// now we have to delete max child from it's original position.
-				del(tmp->getRight()->key(), tmp);
+				Node* tmp = node->maxChildPar(node->getLeft()->getLeft()); // tempory var for parent of max child.
+				if(!tmp->hasChild()){ // if it doesn't, we need to use it's parent(meaning k's node).
+					int newKey = tmp->key();
+					del(tmp->key(),node->getLeft());
+					node->getLeft()->setKey(newKey);
+				}
+				else{
+					node->getLeft()->setKey(tmp->getRight()->key());
+					del(tmp->getRight()->key(),tmp);
+				}
+
 			}
-			else if(node->getLeft()->hasChildren()){ // CASE C (one child)
+			else if(node->getLeft()->hasChild()){ // CASE C (one child)
 				// point the key node's parent child to key node's only child.
 				node->setLeft(node->getLeft()->child()); // replace key node's position with key node's child.
-				resetChildren(node->getLeft()); // set key node's child to null before deleting it.
+				node->resetChildren(node->getLeft()); // set key node's child to null before deleting it.
 				delete node->getLeft(); // delete garbage.         
 			}
 			else{ // CASE B (No children)
@@ -153,14 +159,22 @@ void BTree::del(int k, Node* node){
 	else if(k > node->key() && node->hasRight()){ // we need to go the right.
 		if(node->getRight()->key() == k){ // the child on left is the key to be deleted.
 			if(node->getRight()->hasLeft() && node->getRight()->hasRight()){ // CASE D (two children). 
-				Node* tmp = maxChildPar(node->getRight()->getLeft());
-				Node->getRight()->setKey(tmp->getRight()->key());
-				del(tmp->getRight()->key(),tmp);
+				Node* tmp = node->maxChildPar(node->getRight()->getLeft());
+				// check if tmp is a parent.
+				if(!tmp->hasChild()){ // if it doesn't, we need to use it's parent(meaning k's node).
+					int newKey = tmp->key();
+					del(tmp->key(),node->getRight());
+					node->getRight()->setKey(newKey);
+				}
+				else{
+					node->getRight()->setKey(tmp->getRight()->key());
+					del(tmp->getRight()->key(),tmp);
+				}
 			}
-			else if(node->getRight()->hasChildren()){ // CASE C (one child)
+			else if(node->getRight()->hasChild()){ // CASE C (one child)
 				// point the key node's parent child to key node's only child.
 				node->setRight(node->getRight()->child()); // replace key node's position with key node's child
-				resetChildren(node->getRight()); // set key node's child to null before deleting it.
+				node->resetChildren(node->getRight()); // set key node's child to null before deleting it.
 				delete node->getRight(); // delete garbage.         
 			}
 			else{ // CASE B (No children)
@@ -172,6 +186,14 @@ void BTree::del(int k, Node* node){
 		else{ // if this is true: we have not found k's parent.
 			del(k,node->getRight()); // keep traversing.
 		}
+	}
+	else if(node->key() == k){ // in case were deleting the root.
+		
+		Node* tmp = new Node();
+		tmp->setRight(getRoot());
+		del(getRootKey(), tmp);
+		tmp->setRight(nullptr);
+		delete tmp;
 	}
 	else return; // key not found, just exit.
 }
