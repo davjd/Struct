@@ -191,6 +191,7 @@ void BTree::del(int k, Node* node){
 		
 		Node* tmp = new Node();
 		tmp->setRight(getRoot());
+		tmp->setKey(getRootKey() - 1);
 		del(getRootKey(), tmp);
 		tmp->setRight(nullptr);
 		delete tmp;

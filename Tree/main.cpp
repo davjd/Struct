@@ -37,6 +37,7 @@ int main(){
 	//std::cout << "max child of left subtree: " << tree.getRoot()->maxChildPar(tree.getRoot()->getLeft())->key() << std::endl;
 	tree.del(tree.getRootKey(),tree.getRoot());
 	std::cout << "\nDELETED\n\n";
+	std::cout << "root: " << tree.getRootKey() << "\n";
 	tree.preOrderTraverse();
 	std::cout << "\nALL METHODS PASSED\n\n";
 	return 0;
