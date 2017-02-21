@@ -32,9 +32,6 @@ struct Node{
 
 template <class T>
 class Queue{
-	private:
-		Node<T> *start;
-		Node<T> *end;
 	public:
 		~Queue();
 		Queue(T itm);
@@ -54,5 +51,8 @@ class Queue{
 				delete next;
 			}
 		};
+	private:
+		typename Queue<T>::Node *start;
+		typename Queue<T>::Node *end;
 
 };

@@ -19,12 +19,11 @@
 #include "Queue.h"
 
 
-//class Queue<int>;
 
 
 int main(){
 	std::cout << "------ START ------" << std::endl;
-	Queue<int> q(10);
+	Queue<int> q;
 	std::cout << "++++++ FINISHED ++++++" << std::endl;
 
 	return 0;

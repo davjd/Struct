@@ -28,7 +28,7 @@ Queue<T>::~Queue(){
 
 template <class T>
 Queue<T>::Queue(T itm){
-	start = new Node<T>(itm);
+	start = new typename Queue<T>::Node(itm);
 	start->next = nullptr;
 	end = start;
 }
@@ -36,7 +36,7 @@ Queue<T>::Queue(T itm){
 template <class T>
 void Queue<T>::enqueue(T itm){
 
-	end->next = new Node<T>(itm);
+	end->next = new typename Queue<T>::Node(itm);
 	end->next->next = nullptr;
 	end = end->next;
 }
@@ -50,7 +50,7 @@ T Queue<T>::dequeue(){
 	// first check if the there is more than one item in the queue.
 	if(start->next != nullptr){
 		//  reserve memory for the item that will be deleted.
-		Node<T> *tmp = start->next;
+		typename Queue<T>::Node *tmp = start->next;
 		// shift the second item as the first.
 		start->itm = start->next->itm;
 		start->next = start->next->next;
