@@ -20,10 +20,10 @@
 
 
 
-
 int main(){
 	std::cout << "------ START ------" << std::endl;
-	Queue<int> q;
+	Queue<int> q(10);
+	q.print();
 	std::cout << "++++++ FINISHED ++++++" << std::endl;
 
 	return 0;

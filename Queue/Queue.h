@@ -15,33 +15,12 @@
  *
  * =====================================================================================
  */
-/*  
-template <typename T>
-struct Node{
-	T* next;
-	T itm;
-
-	Node(T item){
-		itm = item;
-	}
-	~Node(){
-		delete next;
-	}
-};*/
-
 
 template <class T>
 class Queue{
 	public:
-		~Queue();
-		Queue(T itm);
-		Queue();
-		void enqueue(T itm);
-		T dequeue();
-		bool isFull();
-
 		struct Node{
-			T* next;
+			Node* next;
 			T itm;
 
 			Node(T item){
@@ -51,6 +30,15 @@ class Queue{
 				delete next;
 			}
 		};
+
+		~Queue();
+		Queue(T itm);
+		Queue();
+		void enqueue(T itm);
+		T dequeue();
+		bool isFull();
+		void print(Node* node);	
+		void print();	
 	private:
 		typename Queue<T>::Node *start;
 		typename Queue<T>::Node *end;

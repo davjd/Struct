@@ -1,4 +1,5 @@
 /*
+ * :
  * =====================================================================================
  *
  *       Filename:  Queue.cpp
@@ -17,13 +18,23 @@
  */
 
 #include "Queue.h"
+#include <iostream>
+
+template class Queue<int>;
+template class Queue<float>;
+template class Queue<double>;
+template class Queue<std::string>;
+template class Queue<char>;
 template <class T>
-Queue<T>::Queue(){}
+Queue<T>::Queue(){
+	start = nullptr;
+	end = nullptr;
+}
 
 template <class T>
 Queue<T>::~Queue(){
-	delete end;
-	delete start;
+	//delete end;
+	//delete start;
 }
 
 template <class T>
@@ -39,6 +50,20 @@ void Queue<T>::enqueue(T itm){
 	end->next = new typename Queue<T>::Node(itm);
 	end->next->next = nullptr;
 	end = end->next;
+}
+
+template <class T>
+void Queue<T>::print(Node* node){
+	if(node == nullptr) return;
+	else{
+		std::cout << node->itm << std::endl;
+		print(node->next);
+	}	
+}
+
+template <class T>
+void Queue<T>::print(){
+	print(start);
 }
 
 template <class T>
@@ -59,7 +84,7 @@ T Queue<T>::dequeue(){
 		delete tmp;
 	}
 	else{ // if there is only one item in the queue.
-		start->itm = 0;
+		start = nullptr;
 	}
 
 
