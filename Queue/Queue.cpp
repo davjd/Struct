@@ -33,12 +33,19 @@ Queue<T>::Queue(){
 
 template <class T>
 Queue<T>::~Queue(){
-	//delete end;
-	//delete start;
+	if(start != nullptr) {
+		delete start;
+		start = nullptr;
+		end = nullptr;
+	}
+}
+template<class T>
+Queue<T>::Queue(T itm){
+	init(itm);
 }
 
-template <class T>
-Queue<T>::Queue(T itm){
+template<class T>
+void Queue<T>::init(T itm){
 	start = new typename Queue<T>::Node(itm);
 	start->next = nullptr;
 	end = start;
@@ -46,10 +53,15 @@ Queue<T>::Queue(T itm){
 
 template <class T>
 void Queue<T>::enqueue(T itm){
+	if(start == nullptr){
+		init(itm);
+	}
+	else{
 
-	end->next = new typename Queue<T>::Node(itm);
-	end->next->next = nullptr;
-	end = end->next;
+		end->next = new typename Queue<T>::Node(itm);
+		end->next->next = nullptr;
+		end = end->next;
+	}
 }
 
 template <class T>
@@ -63,14 +75,16 @@ void Queue<T>::print(Node* node){
 
 template <class T>
 void Queue<T>::print(){
-	print(start);
+	if(start == nullptr) std::cout << "Queue is empty." << std::endl;
+	else print(start);
 }
 
 template <class T>
 T Queue<T>::dequeue(){
 	// variable to hold the item to be dequeued.
+	if(start == nullptr) return 0; // if queue is empty.i
 	T item = start->itm;
-	
+
 	// shift the items.
 	// first check if the there is more than one item in the queue.
 	if(start->next != nullptr){
@@ -81,13 +95,29 @@ T Queue<T>::dequeue(){
 		start->next = start->next->next;
 		// we shifted the queue by copying the second item
 		// so the second item isnt needed anymore.
+		tmp->next = nullptr;
 		delete tmp;
 	}
 	else{ // if there is only one item in the queue.
+		delete start;
 		start = nullptr;
 	}
-
-
 	return item;
 
+}
+
+template <class T>
+T Queue<T>::peek(){
+	return end->itm;
+}
+
+template <class T>
+T Queue<T>::get(int idx){
+	return get(idx, start);
+}
+
+template <class T>
+T Queue<T>::get(int idx, Node* node){
+	if(idx == -1 ||  node == nullptr) return 0;
+	else return get(--idx, node->next);
 }

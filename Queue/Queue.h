@@ -27,7 +27,10 @@ class Queue{
 				itm = item;
 			}
 			~Node(){
-				delete next;
+				if(next != nullptr) { 
+					delete next;
+					next = nullptr;
+				}
 			}
 		};
 
@@ -38,9 +41,12 @@ class Queue{
 		T dequeue();
 		bool isFull();
 		void print(Node* node);	
-		void print();	
+		void print();
+		T peek(); // returns but doesn't dequeue first item.
+		T get(int idx);
 	private:
 		typename Queue<T>::Node *start;
 		typename Queue<T>::Node *end;
-
+		T get(int idx, Node* node); // helper method for get method.
+		void init(T itm);
 };
