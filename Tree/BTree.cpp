@@ -18,6 +18,7 @@
 #pragma once
 #include "BTree.h"
 #include "Node.h"
+#include <iostream>
 class Node;
 BTree::BTree() : root(nullptr) {}; // default btree constructor.
 BTree::BTree(int head){
@@ -194,10 +195,13 @@ void BTree::del(int k, Node* node){
 		del(getRootKey(), tmp);
 		tmp->setRight(nullptr);
 		delete tmp;
+		tmp = nullptr;
 	}
 	else return; // key not found, just exit.
 }
-
+void BTree::del(int k){
+	del(k,getRoot());
+}
 
 
 

@@ -10,7 +10,7 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  youngthvg, 
+ *         Author: David M, 
  *   Organization:  
  *
  * =====================================================================================
@@ -35,7 +35,7 @@ int main(){
 	
 	tree.preOrderTraverse();
 	//std::cout << "max child of left subtree: " << tree.getRoot()->maxChildPar(tree.getRoot()->getLeft())->key() << std::endl;
-	tree.del(tree.getRootKey(),tree.getRoot());
+	tree.del(31);
 	std::cout << "\nDELETED\n\n";
 	std::cout << "root: " << tree.getRootKey() << "\n";
 	tree.preOrderTraverse();
