@@ -3,7 +3,7 @@
  *
  *       Filename:  Trie.h
  *
- *    Description:  
+ *    Description:  Trie header.
  *
  *        Version:  1.0
  *        Created:  03/08/2017 12:01:50 AM
@@ -13,21 +13,25 @@
  *         Author:  David M, 
  *   Organization:  
  *
+ *
+ *  The name trie comes from its use for retrieval.
+ *
  * =====================================================================================
  */
 
-template <class T>
+
+
 class Trie{
     public:
         struct Node{
-            T character; // current character.
-            T* next; // next letter after this character.
+            char character; // current character.
+            Node* next; // next letter after this character.
         }
         void Trie();
-        void Trie(T word);
-        void add(T word);
-        void remove(T word);
-        T pop(T word);
+        void Trie(std::string word);
+        void insert(std::string word);
+        void remove(std::string word);
+        T pop(std::string word);
     private:
-        Node *alphabet;
+        Node *root;
 }

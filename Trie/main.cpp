@@ -16,8 +16,13 @@
  * =====================================================================================
  */
 
+#include <iostream>
 int main(){
 
+    std::string i = "hello";
+    char a = 'a';
+    std::cout << i.length() << ", " << i[0] << std::endl;
+    std::cout << "Hello world." << std::endl;
 
     return 0;
 }
