@@ -17,12 +17,24 @@
  */
 
 #include <iostream>
+#include "Trie.h"
+void hello(int i){
+    if(i == 0) return;
+    else{
+        for(int j = 0; j <= i; ++j){
+            std::cout << "i: " << i << ", j: " << j << std::endl;
+            if(i == j){
+                return hello(i - 1);
+                std::cout << "call after return." << std::endl;
+            }
+        }
+    }
+}
+
 int main(){
 
-    std::string i = "hello";
-    char a = 'a';
-    std::cout << i.length() << ", " << i[0] << std::endl;
-    std::cout << "Hello world." << std::endl;
 
+    Trie t;
+    t.insert("hello");
     return 0;
 }

@@ -15,20 +15,43 @@
  *
  * =====================================================================================
  */
+#include "Trie.h"
+#include <iostream>
+
 
 Trie::Trie(){
     root = nullptr;
 }
 
-Trie::Trie(T word){
-    root = nullptr;
+Trie::Trie(std::string word){
+    root = new Node();
+    insert(word, root);
 }
 
 void Trie::insert(std::string  word, Node* current){
     if(word.length() == 0){
         return;
     }
-    else if(current->letter == word[0]){
-        return insert(word.substr(1), current);
+    else{
+        int i = 0;
+        for(; current->next[i] != nullptr; ++i){
+            if(current->next[i]->letter == word[0]){
+                return insert(word.substr(1), current->next[i]);
+                std::cout << "hello !" << std::endl;
+                break;
+            } 
+        }
+        // if the letter wasnt't found, add a new node,
+        // with the next letter of the word.
+        current->next[i] = new Node(word[0]);
+
+        // continue adding the rest of the letters.
+        insert(word.substr(1), current->next[i]);
     }
+}
+void Trie::insert(std::string word){
+    insert(word, root);
+}
+void Trie::print(){
+    // prints all items in the dictionary.
 }

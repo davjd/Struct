@@ -19,19 +19,34 @@
  * =====================================================================================
  */
 
+#include <string>
 
 
 class Trie{
     public:
         struct Node{
-            char character; // current character.
-            Node* next; // next letter after this character.
-        }
-        void Trie();
-        void Trie(std::string word);
+            char letter; // current character.
+            Node *next[26]; // possible letters after this character.
+            Node(char l){
+                letter = l;
+                for(int i = 0; i < 26; ++i){
+                    next[i] = nullptr;
+                }
+            }
+            Node(){
+                for(int i = 0; i < 26; ++i){
+                    next[i] == nullptr;
+                    letter = NULL;
+                }
+            }
+        };
+        Trie();
+        Trie(std::string word);
         void insert(std::string word);
+        void insert(std::string word, Node* current);
         void remove(std::string word);
-        T pop(std::string word);
+        std::string pop(std::string word);
+        void print();
     private:
         Node *root;
-}
+};
