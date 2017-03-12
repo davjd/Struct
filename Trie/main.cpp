@@ -33,8 +33,17 @@ void hello(int i){
 
 int main(){
 
+    std::cout << "+++++COMPILED+++++" << std::endl;
 
     Trie t;
     t.insert("hello");
+
+    std::cout << "insert(). " << std::endl;
+    t.insert("hi");
+    t.insert("hey");
+    t.print();
+
+
+    std::cout << "-----COMPLETE----" << std::endl;
     return 0;
 }

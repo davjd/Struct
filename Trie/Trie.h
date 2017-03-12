@@ -43,10 +43,11 @@ class Trie{
         Trie();
         Trie(std::string word);
         void insert(std::string word);
-        void insert(std::string word, Node* current);
         void remove(std::string word);
         std::string pop(std::string word);
         void print();
     private:
         Node *root;
+        void print(Node* current, char parent);
+        void insert(std::string word, Node* current);
 };

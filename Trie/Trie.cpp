@@ -34,13 +34,9 @@ void Trie::insert(std::string  word, Node* current){
     }
     else{
         int i = 0;
-        std::cout << "i: 0: " << i << std::endl;
         for(; current->next[i] != nullptr; ++i){
-            std::cout << "i: " << i << std::endl;
             if(current->next[i]->letter == word[0]){
                 return insert(word.substr(1), current->next[i]);
-                std::cout << "hello !" << std::endl;
-                break;
             } 
         }
         // if the letter wasnt't found, add a new node,
@@ -55,5 +51,19 @@ void Trie::insert(std::string word){
     insert(word, root);
 }
 void Trie::print(){
-    // prints all items in the dictionary.
+    print(root, root->next[0]->letter);
+}
+void Trie::print(Node* current, char parent){
+    // prints all items in the trie.
+    for(int i = 0; current->next[i] != nullptr; ++i){
+        //std::cout << "i: " << i << std::endl;
+        if(i > 0) std::cout << "parent: " << parent << std::endl;
+        // deep search throught each valid letter.
+        if(current->next[i]->letter != '\0'){
+            std::cout << current->next[i]->letter << std::endl;
+            // deep search.
+            print(current->next[i], current->next[i]->letter);
+        }
+    } 
+    std::cout << "word ended." << std::endl;
 }
