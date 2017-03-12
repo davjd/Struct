@@ -34,9 +34,9 @@ class Trie{
                 }
             }
             Node(){
+                letter = '\0';
                 for(int i = 0; i < 26; ++i){
                     next[i] == nullptr;
-                    letter = NULL;
                 }
             }
         };

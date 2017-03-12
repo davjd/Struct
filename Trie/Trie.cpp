@@ -20,7 +20,7 @@
 
 
 Trie::Trie(){
-    root = nullptr;
+    root = new Node();
 }
 
 Trie::Trie(std::string word){
@@ -34,7 +34,9 @@ void Trie::insert(std::string  word, Node* current){
     }
     else{
         int i = 0;
+        std::cout << "i: 0: " << i << std::endl;
         for(; current->next[i] != nullptr; ++i){
+            std::cout << "i: " << i << std::endl;
             if(current->next[i]->letter == word[0]){
                 return insert(word.substr(1), current->next[i]);
                 std::cout << "hello !" << std::endl;
