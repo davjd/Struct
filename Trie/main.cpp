@@ -37,12 +37,13 @@ int main(){
 
     Trie t;
     t.insert("hello");
-
-    std::cout << "insert(). " << std::endl;
+    t.printWords(); 
+    //t.printWords();
+    /*  std::cout << "insert(). " << std::endl;
     t.insert("hi");
     t.insert("hey");
     t.print();
-
+    */
 
     std::cout << "-----COMPLETE----" << std::endl;
     return 0;

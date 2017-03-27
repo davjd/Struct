@@ -26,14 +26,20 @@ class Trie{
     public:
         struct Node{
             char letter; // current character.
+            bool end; // wether its final letter of word.
+            bool start; // whether its beginning of word.
             Node *next[26]; // possible letters after this character.
             Node(char l){
+                end = false;
+                start = false;
                 letter = l;
                 for(int i = 0; i < 26; ++i){
                     next[i] = nullptr;
                 }
             }
             Node(){
+                start = false;
+                end = false;
                 letter = '\0';
                 for(int i = 0; i < 26; ++i){
                     next[i] == nullptr;
@@ -46,8 +52,10 @@ class Trie{
         void remove(std::string word);
         std::string pop(std::string word);
         void print();
+        void printWords();
     private:
         Node *root;
-        void print(Node* current, char parent);
+        std::string printWords(Node *current);
+        void print(Node* current, char  parent);
         void insert(std::string word, Node* current);
 };

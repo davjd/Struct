@@ -30,6 +30,9 @@ Trie::Trie(std::string word){
 
 void Trie::insert(std::string  word, Node* current){
     if(word.length() == 0){
+        // if end of letter:
+        // set the end to true.
+        current->end = true;
         return;
     }
     else{
@@ -39,9 +42,15 @@ void Trie::insert(std::string  word, Node* current){
                 return insert(word.substr(1), current->next[i]);
             } 
         }
+
         // if the letter wasnt't found, add a new node,
         // with the next letter of the word.
         current->next[i] = new Node(word[0]);
+        
+        // check if its the beginning of a word.
+        if(current == root){
+            current->next[i]->start = true;
+        }
 
         // continue adding the rest of the letters.
         insert(word.substr(1), current->next[i]);
@@ -53,6 +62,32 @@ void Trie::insert(std::string word){
 void Trie::print(){
     print(root, root->next[0]->letter);
 }
+
+void Trie::printWords(){
+    printWords(root);
+}
+
+std::string Trie::printWords(Node *current){
+    for(int i = 0; current->next[i] != nullptr; ++i){
+        std::cout << "letter: " << current->next[i]->letter << std::endl;
+        if(current->next[i]->end){
+            return std::string(1,current->next[i]->letter);
+            //std::cout << "word: " << word << std::endl;
+        }
+       
+        if(current->next[i]->start){
+            std:: cout << "beginning: " 
+                << current->next[i]->letter
+                << printWords(current->next[i]) << std::endl;
+        } 
+        else if(current->next[i]->letter != '\0'){
+            return current->next[i]->letter 
+                + printWords(current->next[i]);
+        }
+    }
+    
+}
+
 void Trie::print(Node* current, char parent){
     // prints all items in the trie.
     for(int i = 0; current->next[i] != nullptr; ++i){
