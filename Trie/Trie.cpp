@@ -33,7 +33,6 @@ void Trie::insert(std::string  word, Node* current){
         // if end of letter:
         // set the end to true.
         current->end = true;
-        return;
     }
     else{
         int i = 0;
