@@ -18,18 +18,6 @@
 
 #include <iostream>
 #include "Trie.h"
-void hello(int i){
-    if(i == 0) return;
-    else{
-        for(int j = 0; j <= i; ++j){
-            std::cout << "i: " << i << ", j: " << j << std::endl;
-            if(i == j){
-                return hello(i - 1);
-                std::cout << "call after return." << std::endl;
-            }
-        }
-    }
-}
 
 int main(){
 
@@ -37,13 +25,15 @@ int main(){
 
     Trie t;
     t.insert("hello");
-    t.printWords(); 
-    //t.printWords();
-    /*  std::cout << "insert(). " << std::endl;
-    t.insert("hi");
+    t.insert("trie");
+    t.insert("hi"); 
     t.insert("hey");
+
+    std::cout << "------print chars-------" << std::endl;
     t.print();
-    */
+
+    std::cout << "-------print words------" << std::endl;
+    t.printWords();
 
     std::cout << "-----COMPLETE----" << std::endl;
     return 0;

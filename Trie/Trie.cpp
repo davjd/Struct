@@ -47,11 +47,6 @@ void Trie::insert(std::string  word, Node* current){
         // with the next letter of the word.
         current->next[i] = new Node(word[0]);
         
-        // check if its the beginning of a word.
-        if(current == root){
-            current->next[i]->start = true;
-        }
-
         // continue adding the rest of the letters.
         insert(word.substr(1), current->next[i]);
     }
@@ -60,45 +55,42 @@ void Trie::insert(std::string word){
     insert(word, root);
 }
 void Trie::print(){
-    print(root, root->next[0]->letter);
+    print(root);
 }
 
 void Trie::printWords(){
-    printWords(root);
+    printWords(root, "");
+}
+void Trie::printWords(Node* current, std::string word){
+    // prints all words in the trie.
+    for(int i = 0; current->next[i] != nullptr; ++i){
+        if(current->next[i]->end) { 
+            std::cout << word << current->next[i]->letter 
+                << std::endl;
+        }
+        
+        /*  There might be times when a complete word
+         *  is a prefix of another.
+         *   ex. try and trying.
+         *  So we need to keep traversing through the trie
+         *  until we find the last child node.
+         * */
+
+        if(current->next[i]->letter != '\0'){
+            // deep search.
+            printWords(current->next[i], (word + current->next[i]->letter));
+        }
+    } 
 }
 
-std::string Trie::printWords(Node *current){
+void Trie::print(Node* current){
+    // prints all characters in the trie.
     for(int i = 0; current->next[i] != nullptr; ++i){
-        std::cout << "letter: " << current->next[i]->letter << std::endl;
-        if(current->next[i]->end){
-            return std::string(1,current->next[i]->letter);
-            //std::cout << "word: " << word << std::endl;
-        }
-       
-        if(current->next[i]->start){
-            std:: cout << "beginning: " 
-                << current->next[i]->letter
-                << printWords(current->next[i]) << std::endl;
-        } 
-        else if(current->next[i]->letter != '\0'){
-            return current->next[i]->letter 
-                + printWords(current->next[i]);
-        }
-    }
-    
-}
-
-void Trie::print(Node* current, char parent){
-    // prints all items in the trie.
-    for(int i = 0; current->next[i] != nullptr; ++i){
-        //std::cout << "i: " << i << std::endl;
-        if(i > 0) std::cout << "parent: " << parent << std::endl;
         // deep search throught each valid letter.
         if(current->next[i]->letter != '\0'){
             std::cout << current->next[i]->letter << std::endl;
             // deep search.
-            print(current->next[i], current->next[i]->letter);
+            print(current->next[i]);
         }
     } 
-    std::cout << "word ended." << std::endl;
 }
